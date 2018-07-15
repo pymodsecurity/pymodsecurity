@@ -1,13 +1,20 @@
 #include <pybind11/pybind11.h>
+#include <modsecurity/rule_message.h>
 #include <modsecurity/rule.h>
+#include <modsecurity/collection/variable.h>
+#include <modsecurity/actions/action.h>
 
 namespace py = pybind11;
 using modsecurity::Rule;
+using modsecurity::operators::Operator;
+using modsecurity::collection::Variable;
+using namespace modsecurity;
 
 void init_rule(py::module &m)
 {
     py::class_<Rule>(m, "Rule")
-        // .def(py::init<>())
+        // .def(py::init<std::string>())
+        // .def(py::init<Operator *, std::vector<Variable *> *, std::vector<actions::Action *> *, std::string, int>())
         .def("evaluate", &Rule::evaluate)
         .def("evaluateActions", &Rule::evaluateActions)
         .def("getFinalVars", &Rule::getFinalVars)
@@ -36,7 +43,7 @@ void init_rule(py::module &m)
         .def_readwrite("m_logData", &Rule::m_logData)
         .def_readwrite("m_marker", &Rule::m_marker)
         .def_readwrite("m_maturity", &Rule::m_maturity)
-        .def_readwrite("m_op", &Rule::m_op)
+        // .def_readwrite("m_op", &Rule::m_op)
         .def_readwrite("m_phase", &Rule::m_phase)
         .def_readwrite("m_rev", &Rule::m_rev)
         .def_readwrite("m_ruleId", &Rule::m_ruleId)
