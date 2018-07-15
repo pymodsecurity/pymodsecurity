@@ -1,0 +1,34 @@
+{% set name = "pymodsecurity" %}
+{% set version = "0.1" %}
+{% set build_numer = "0" %}
+
+package:
+  name: {{ name }}
+  version: {{ version }}
+
+build:
+  number: {{ build_number }}
+  skip: true # [not linux]
+  script_env:
+    - CC
+    - CXX
+
+source:
+  git_url: ../
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - pybind11
+
+  run:
+    - python
+
+test:
+  imports:
+    - {{ name }}
+
+about:
+  summary: Python bindings to libmodsecurity
+license_file: LICENSE.txt

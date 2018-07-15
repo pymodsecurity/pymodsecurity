@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 2.8.12)
 project(modsecurity)
 
 set(LIBRARIES modsecurity)
-set(INCLUDES /usr/local/modsecurity/include/)
 
 # Conda support
 set(INCLUDES ${INCLUDES} $ENV{CONDA_PREFIX}/include)
