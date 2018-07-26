@@ -66,14 +66,29 @@ def cpp_flag(compiler):
         raise RuntimeError('Unsupported compiler -- at least C++11 support '
                            'is needed!')
 
+def get_conda_prefix(concat=''):
+    import os
+    if 'CONDA_PREFIX' in os.environ:
+        prefix = os.environ['CONDA_PREFIX']
+        return os.path.join(prefix, concat) 
+    else:
+        return ''
 
 class BuildExt(build_ext):
     """A custom build extension for adding compiler-specific options."""
     c_opts = {
         'msvc': [],
         'unix': [
-            '-I$CONDA_PREFIX/include',
-            '-L$CONDA_PREFIX/lib',
+            '-I'+ get_conda_prefix('include'),
+            '-L'+ get_conda_prefix('lib'),
+            '-lmodsecurity',
+        ],
+    }
+
+    link_opts = {
+        'unix': [
+            '-I'+ get_conda_prefix('include'),
+            '-L'+ get_conda_prefix('lib'),
             '-lmodsecurity',
         ],
     }
