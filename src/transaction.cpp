@@ -1,5 +1,6 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <memory.h>
 #include <modsecurity/rule_message.h>
 #include <modsecurity/rule.h>
 #include <modsecurity/rules.h>
@@ -8,11 +9,15 @@
 
 namespace py = pybind11;
 using modsecurity::Transaction;
+using modsecurity::ModSecurity;
+using modsecurity::Rules;
 
 void init_transaction(py::module &m)
 {
     py::class_<Transaction>(m, "Transaction")
-        // .def(py::init<>())
+        .def(py::init([](ModSecurity *ms, Rules *rules) {
+            return std::unique_ptr<Transaction>(new Transaction(ms, rules, nullptr)); //TODO: support callback function
+        }))
         .def("processConnection", &Transaction::processConnection)
         .def("processURI", &Transaction::processURI)
         .def("processRequestHeaders", &Transaction::processRequestHeaders)

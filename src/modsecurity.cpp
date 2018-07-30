@@ -2,6 +2,7 @@
 #include <pybind11/functional.h>
 #include <modsecurity/rule_message.h>
 #include <modsecurity/modsecurity.h>
+#include <modsecurity/transaction.h>
 
 namespace py = pybind11;
 using modsecurity::ModSecurity;

@@ -1,11 +1,11 @@
 #include <pybind11/pybind11.h>
-#include <modsecurity/collection/variable.h>
+#include <modsecurity/variable_value.h>
 #include <modsecurity/collection/collection.h>
 
 namespace py = pybind11;
 
 using modsecurity::collection::Collection;
-using modsecurity::collection::Variable;
+using modsecurity::VariableValue;
 
 class pyCollection : public Collection {
     public:
@@ -36,15 +36,15 @@ class pyCollection : public Collection {
     //     PYBIND11_OVERLOAD_PURE(std::string*, Collection, resolveFirst, var);
     // }
 
-    void resolveSingleMatch(const std::string& var, std::vector<const Variable *> *l) override {
+    void resolveSingleMatch(const std::string& var, std::vector<const VariableValue *> *l) override {
         PYBIND11_OVERLOAD_PURE(void, Collection, resolveSingleMatch, var, l);
     }
     
-    void resolveMultiMatches(const std::string& var, std::vector<const Variable *> *l) override {
+    void resolveMultiMatches(const std::string& var, std::vector<const VariableValue *> *l) override {
         PYBIND11_OVERLOAD_PURE(void, Collection, resolveMultiMatches, var, l);
     }
 
-    void resolveRegularExpression(const std::string& var, std::vector<const Variable *> *l) override {
+    void resolveRegularExpression(const std::string& var, std::vector<const VariableValue *> *l) override {
         PYBIND11_OVERLOAD_PURE(void, Collection, resolveRegularExpression, var, l);
     }
 
@@ -90,27 +90,27 @@ class pyCollection : public Collection {
     //     return Collection::resolveFirst(var, compartment, compartment2).release();
     // }
 
-    void resolveSingleMatch(const std::string& var, std::string compartment, std::vector<const Variable *> *l) override {
+    void resolveSingleMatch(const std::string& var, std::string compartment, std::vector<const VariableValue *> *l) override {
         PYBIND11_OVERLOAD(void, Collection, resolveSingleMatch, var, compartment, l);
     }
 
-    void resolveSingleMatch(const std::string& var, std::string compartment, std::string compartment2, std::vector<const Variable *> *l) override {
+    void resolveSingleMatch(const std::string& var, std::string compartment, std::string compartment2, std::vector<const VariableValue *> *l) override {
         PYBIND11_OVERLOAD(void, Collection, resolveSingleMatch, var, compartment, compartment2, l);
     }
 
-    void resolveMultiMatches(const std::string& var, std::string compartment, std::vector<const Variable *> *l) override {
+    void resolveMultiMatches(const std::string& var, std::string compartment, std::vector<const VariableValue *> *l) override {
         PYBIND11_OVERLOAD(void, Collection, resolveMultiMatches, var, compartment, l);
     }
 
-    void resolveMultiMatches(const std::string& var, std::string compartment, std::string compartment2, std::vector<const Variable *> *l) override {
+    void resolveMultiMatches(const std::string& var, std::string compartment, std::string compartment2, std::vector<const VariableValue *> *l) override {
         PYBIND11_OVERLOAD(void, Collection, resolveMultiMatches, var, compartment, compartment2, l);
     }
 
-    void resolveRegularExpression(const std::string& var, std::string compartment, std::vector<const Variable *> *l) override {
+    void resolveRegularExpression(const std::string& var, std::string compartment, std::vector<const VariableValue *> *l) override {
         PYBIND11_OVERLOAD(void, Collection, resolveRegularExpression, var, compartment, l);
     }
 
-    void resolveRegularExpression(const std::string& var, std::string compartment, std::string compartment2, std::vector<const Variable *> *l) override {
+    void resolveRegularExpression(const std::string& var, std::string compartment, std::string compartment2, std::vector<const VariableValue *> *l) override {
         PYBIND11_OVERLOAD(void, Collection, resolveRegularExpression, var, compartment, compartment2, l);
     }
 };
@@ -120,7 +120,7 @@ void init_collection(py::module& m)
     py::module collection_module = m.def_submodule("collection");
 
     py::class_<Collection, pyCollection>(collection_module, "Collection")
-        .def(py::init<>())
+        .def(py::init<std::string>())
         .def("store", py::overload_cast<std::string, std::string>(&Collection::store))
         .def("store", py::overload_cast<std::string, std::string, std::string>(&Collection::store))
         .def("store", py::overload_cast<std::string, std::string, std::string, std::string>(&Collection::store))
@@ -136,14 +136,14 @@ void init_collection(py::module& m)
         // .def("resolveFirst", py::overload_cast<const std::string&>(&pyCollection::resolveFirst_wrapper))
         // .def("resolveFirst", py::overload_cast<const std::string&, std::string>(&pyCollection::resolveFirst_wrapper))
         // .def("resolveFirst", py::overload_cast<const std::string&, std::string, std::string>(&pyCollection::resolveFirst_wrapper))
-        .def("resolveSingleMatch", py::overload_cast<const std::string &, std::vector<const Variable *> *>(&Collection::resolveSingleMatch))
-        .def("resolveSingleMatch", py::overload_cast<const std::string &, std::string, std::vector<const Variable *> *>(&Collection::resolveSingleMatch))
-        .def("resolveSingleMatch", py::overload_cast<const std::string &, std::string, std::string, std::vector<const Variable *> *>(&Collection::resolveSingleMatch))
-        .def("resolveMultiMatches", py::overload_cast<const std::string &, std::vector<const Variable *> *>(&Collection::resolveMultiMatches))
-        .def("resolveMultiMatches", py::overload_cast<const std::string &, std::string, std::vector<const Variable *> *>(&Collection::resolveMultiMatches))
-        .def("resolveMultiMatches", py::overload_cast<const std::string &, std::string, std::string, std::vector<const Variable *> *>(&Collection::resolveMultiMatches))
-        .def("resolveRegularExpression", py::overload_cast<const std::string &, std::vector<const Variable *> *>(&Collection::resolveRegularExpression))
-        .def("resolveRegularExpression", py::overload_cast<const std::string &, std::string, std::vector<const Variable *> *>(&Collection::resolveRegularExpression))
-        .def("resolveRegularExpression", py::overload_cast<const std::string &, std::string, std::string, std::vector<const Variable *> *>(&Collection::resolveRegularExpression))
+        .def("resolveSingleMatch", py::overload_cast<const std::string &, std::vector<const VariableValue *> *>(&Collection::resolveSingleMatch))
+        .def("resolveSingleMatch", py::overload_cast<const std::string &, std::string, std::vector<const VariableValue *> *>(&Collection::resolveSingleMatch))
+        .def("resolveSingleMatch", py::overload_cast<const std::string &, std::string, std::string, std::vector<const VariableValue *> *>(&Collection::resolveSingleMatch))
+        .def("resolveMultiMatches", py::overload_cast<const std::string &, std::vector<const VariableValue *> *>(&Collection::resolveMultiMatches))
+        .def("resolveMultiMatches", py::overload_cast<const std::string &, std::string, std::vector<const VariableValue *> *>(&Collection::resolveMultiMatches))
+        .def("resolveMultiMatches", py::overload_cast<const std::string &, std::string, std::string, std::vector<const VariableValue *> *>(&Collection::resolveMultiMatches))
+        .def("resolveRegularExpression", py::overload_cast<const std::string &, std::vector<const VariableValue *> *>(&Collection::resolveRegularExpression))
+        .def("resolveRegularExpression", py::overload_cast<const std::string &, std::string, std::vector<const VariableValue *> *>(&Collection::resolveRegularExpression))
+        .def("resolveRegularExpression", py::overload_cast<const std::string &, std::string, std::string, std::vector<const VariableValue *> *>(&Collection::resolveRegularExpression))
         .def_readwrite("m_name", &Collection::m_name);
 }

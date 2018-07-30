@@ -23,6 +23,6 @@ void init_collections(py::module& m)
         .def_readwrite("m_session_collection", &Collections::m_session_collection)
         .def_readwrite("m_user_collection", &Collections::m_user_collection)
         .def_readwrite("m_resource_collection", &Collections::m_resource_collection)
-        // .def_readwrite("m_tx_collection", &Collections::m_tx_collection)
+        .def_readwrite("m_tx_collection", &Collections::m_tx_collection)
         ;
 }

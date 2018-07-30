@@ -1,20 +1,20 @@
 #include <pybind11/pybind11.h>
 #include <modsecurity/rule_message.h>
 #include <modsecurity/rule.h>
-#include <modsecurity/collection/variable.h>
+#include <modsecurity/variable_value.h>
 #include <modsecurity/actions/action.h>
 
 namespace py = pybind11;
 using modsecurity::Rule;
 using modsecurity::operators::Operator;
-using modsecurity::collection::Variable;
+using modsecurity::VariableValue;
 using namespace modsecurity;
 
 void init_rule(py::module &m)
 {
     py::class_<Rule>(m, "Rule")
-        // .def(py::init<std::string>())
-        // .def(py::init<Operator *, std::vector<Variable *> *, std::vector<actions::Action *> *, std::string, int>())
+        .def(py::init<std::string>())
+        // .def(py::init<Operator *, std::vector<VariableValue *> *, std::vector<actions::Action *> *, std::string, int>())
         .def("evaluate", &Rule::evaluate)
         .def("evaluateActions", &Rule::evaluateActions)
         .def("getFinalVars", &Rule::getFinalVars)
