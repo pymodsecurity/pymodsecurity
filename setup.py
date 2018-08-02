@@ -23,15 +23,28 @@ class get_pybind_include(object):
         import pybind11
         return pybind11.get_include(self.user)
 
+def get_conda_prefix(concat=''):
+    import os
+    if 'CONDA_PREFIX' in os.environ:
+        prefix = os.environ['CONDA_PREFIX']
+        return os.path.join(prefix, concat) 
+    else:
+        return ''
 
 ext_modules = [
     Extension(
-        'pymodsecurity',
+        'ModSecurity',
         glob.glob('src/*.cpp'),
         include_dirs=[
             # Path to pybind11 headers
             get_pybind_include(),
             get_pybind_include(user=True)
+        ],
+        library_dirs=[
+            get_conda_prefix('lib'),
+        ],
+        libraries=[
+            'modsecurity',
         ],
         language='c++'
     ),
@@ -65,14 +78,6 @@ def cpp_flag(compiler):
     else:
         raise RuntimeError('Unsupported compiler -- at least C++11 support '
                            'is needed!')
-
-def get_conda_prefix(concat=''):
-    import os
-    if 'CONDA_PREFIX' in os.environ:
-        prefix = os.environ['CONDA_PREFIX']
-        return os.path.join(prefix, concat) 
-    else:
-        return ''
 
 class BuildExt(build_ext):
     """A custom build extension for adding compiler-specific options."""
