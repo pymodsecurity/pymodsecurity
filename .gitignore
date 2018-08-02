@@ -1,3 +1,5 @@
 build/*
 *.egg-info/
 tmp/
+.pytest_cache/
+compile_environment.yml

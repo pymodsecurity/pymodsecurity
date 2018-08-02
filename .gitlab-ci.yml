@@ -8,7 +8,10 @@ variables:
 
 before_script:
   - bash .ci-support/setup.sh
-  - bash .ci-support/install-modsecurity.sh # This is temporary
+  - bash .ci-support/install-conda.sh
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - bash .ci-support/install-modsecurity.sh
+  - source activate pymodsecurity
 
 ##############################
 #   Base Jobs definition
@@ -16,8 +19,8 @@ before_script:
 .build-base: &build-base
   stage: build
   script:
-    - pip3 install .
-    - python3 -c "import pymodsecurity"
+    - pip install .
+    - py.test tests
 
 ##############################
 #   Jobs definition
