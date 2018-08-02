@@ -1,15 +1,13 @@
 stages:
   - build
 
-image: ubuntu:bionic
+image: conda/miniconda3
 
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
 before_script:
   - bash .ci-support/setup.sh
-  - bash .ci-support/install-conda.sh
-  - export PATH="$HOME/miniconda/bin:$PATH"
   - bash .ci-support/install-modsecurity.sh
   - source activate pymodsecurity
 

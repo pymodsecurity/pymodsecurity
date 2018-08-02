@@ -13,4 +13,8 @@
 
 # cd ..
 
+conda config --add channels conda-forge
+
+conda install conda-devenv
+
 conda devenv -f compile_environment.devenv.yml
