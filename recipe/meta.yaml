@@ -1,6 +1,6 @@
 {% set name = "pymodsecurity" %}
 {% set version = "0.1" %}
-{% set build_numer = "0" %}
+{% set build_number = 0 %}
 
 package:
   name: {{ name }}
@@ -18,16 +18,27 @@ source:
 
 requirements:
   build:
+    # - {{ compiler('c') }}
+    # - {{ compiler('cxx') }}
+    - gcc
+    - modsecurity
     - python
     - setuptools
     - pybind11
-
+    - git
+  host:
+    - modsecurity
+    - python
+    - pybind11
   run:
+    - modsecurity
     - python
 
 test:
   imports:
-    - {{ name }}
+    - ModSecurity
+  commands:
+    - python -c "from ModSecurity import ModSecurity"
 
 about:
   summary: Python bindings to libmodsecurity

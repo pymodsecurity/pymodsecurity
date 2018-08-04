@@ -8,8 +8,8 @@ variables:
 
 before_script:
   - bash .ci-support/setup.sh
-  - bash .ci-support/install-modsecurity.sh
-  - source activate pymodsecurity
+  - conda config --add channels conda-forge
+  - conda install conda-build pytest
 
 ##############################
 #   Base Jobs definition
@@ -17,7 +17,8 @@ before_script:
 .build-base: &build-base
   stage: build
   script:
-    - pip install .
+    - conda build recipe
+    - conda install pymodsecurity -c local
     - py.test tests
 
 ##############################
