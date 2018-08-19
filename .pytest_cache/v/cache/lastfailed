@@ -1,4 +1,0 @@
-{
-  "tests/test_action.py": true,
-  "tests/test_action.py::test_in": true
-}

@@ -1,0 +1,14 @@
+name: pymodsecurity
+
+dependencies:
+  - python=3.6
+  - modsecurity=3.0.2
+  - pybind11=2.2.3
+  - pytest
+  - gcc
+
+environment:
+  PYTHONPATH:
+    - {{ root }}
+  LD_LIBRARY_PATH:
+    - $CONDA_PREFIX/lib
