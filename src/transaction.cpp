@@ -16,23 +16,30 @@ void init_transaction(py::module &m)
 {
     py::class_<Transaction>(m, "Transaction")
         .def(py::init([](ModSecurity *ms, Rules *rules) {
-            return std::unique_ptr<Transaction>(new Transaction(ms, rules, nullptr)); //TODO: support callback function
+            return std::unique_ptr<Transaction>(new Transaction(ms, rules, nullptr));
+        }))
+        .def(py::init([](ModSecurity *ms, Rules *rules, char *logCbData) {
+            return std::unique_ptr<Transaction>(new Transaction(ms, rules, (void *) logCbData));
         }))
         .def("processConnection", &Transaction::processConnection)
         .def("processURI", &Transaction::processURI)
         .def("processRequestHeaders", &Transaction::processRequestHeaders)
-        .def("addRequestHeader", (int (Transaction::*) (const std::string &, const std::string &)) &Transaction::addRequestHeader)
-        .def("addRequestHeader", (int (Transaction::*) (const unsigned char *, const unsigned char *)) &Transaction::addRequestHeader)
-        .def("addRequestHeader", (int (Transaction::*) (const unsigned char *, size_t, const unsigned char *, size_t)) &Transaction::addRequestHeader)
+        .def("addRequestHeader", (int (Transaction::*)(const std::string &, const std::string &)) & Transaction::addRequestHeader)
+        .def("addRequestHeader", (int (Transaction::*)(const unsigned char *, const unsigned char *)) & Transaction::addRequestHeader)
+        .def("addRequestHeader", (int (Transaction::*)(const unsigned char *, size_t, const unsigned char *, size_t)) & Transaction::addRequestHeader)
         .def("processRequestBody", &Transaction::processRequestBody)
-        .def("appendRequestBody", &Transaction::appendRequestBody)
+        .def("appendRequestBody", [](Transaction &tr, std::string &str) {
+            tr.appendRequestBody((const unsigned char*) str.c_str(), str.length() + 1);
+        })
         .def("requestBodyFromFile", &Transaction::requestBodyFromFile)
         .def("processResponseHeaders", &Transaction::processResponseHeaders)
-        .def("addResponseHeader", (int (Transaction::*) (const std::string &, const std::string &)) &Transaction::addResponseHeader)
-        .def("addResponseHeader", (int (Transaction::*) (const unsigned char *, const unsigned char *)) &Transaction::addResponseHeader)
-        .def("addResponseHeader", (int (Transaction::*) (const unsigned char *, size_t, const unsigned char *, size_t)) &Transaction::addResponseHeader)
+        .def("addResponseHeader", (int (Transaction::*)(const std::string &, const std::string &)) & Transaction::addResponseHeader)
+        .def("addResponseHeader", (int (Transaction::*)(const unsigned char *, const unsigned char *)) & Transaction::addResponseHeader)
+        .def("addResponseHeader", (int (Transaction::*)(const unsigned char *, size_t, const unsigned char *, size_t)) & Transaction::addResponseHeader)
         .def("processResponseBody", &Transaction::processResponseBody)
-        .def("appendResponseBody", &Transaction::appendResponseBody)
+        .def("appendResponseBody", [](Transaction &tr, std::string &str) {
+            tr.appendResponseBody((const unsigned char*) str.c_str(), str.length() + 1);
+        })
         .def("processLogging", &Transaction::processLogging)
         .def("updateStatusCode", &Transaction::updateStatusCode)
         .def("intervention", &Transaction::intervention)
