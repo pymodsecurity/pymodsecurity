@@ -15,6 +15,7 @@ void init_intervention(py::module &m)
     py::module intervention_module = m.def_submodule("intervention");
 
     py::class_<ModSecurityIntervention>(m, "ModSecurityIntervention")
+        .def(pybind11::init<>())
         .def_readwrite("status", &ModSecurityIntervention::status)
         .def_readwrite("pause", &ModSecurityIntervention::pause)
         .def_readwrite("url", &ModSecurityIntervention::url)

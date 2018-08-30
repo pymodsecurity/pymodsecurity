@@ -1,6 +1,7 @@
 from ModSecurity import ModSecurity
 from ModSecurity import Rules
 from ModSecurity import Transaction
+from ModSecurity import ModSecurityIntervention
 
 
 def test_create(modsec):
@@ -33,3 +34,7 @@ def test_transaction(transaction):
     assert transaction.processResponseBody()
 
     assert transaction.processLogging()
+
+def test_intervention_create():
+    it = ModSecurityIntervention()
+    assert it is not None
