@@ -29,7 +29,7 @@ void init_transaction(py::module &m)
         .def("addRequestHeader", (int (Transaction::*)(const unsigned char *, size_t, const unsigned char *, size_t)) & Transaction::addRequestHeader)
         .def("processRequestBody", &Transaction::processRequestBody)
         .def("appendRequestBody", [](Transaction &tr, std::string &str) {
-            tr.appendRequestBody((const unsigned char*) str.c_str(), str.length() + 1);
+            return tr.appendRequestBody((const unsigned char*) str.c_str(), str.length() + 1);
         })
         .def("requestBodyFromFile", &Transaction::requestBodyFromFile)
         .def("processResponseHeaders", &Transaction::processResponseHeaders)
@@ -38,7 +38,7 @@ void init_transaction(py::module &m)
         .def("addResponseHeader", (int (Transaction::*)(const unsigned char *, size_t, const unsigned char *, size_t)) & Transaction::addResponseHeader)
         .def("processResponseBody", &Transaction::processResponseBody)
         .def("appendResponseBody", [](Transaction &tr, std::string &str) {
-            tr.appendResponseBody((const unsigned char*) str.c_str(), str.length() + 1);
+            return tr.appendResponseBody((const unsigned char*) str.c_str(), str.length() + 1);
         })
         .def("processLogging", &Transaction::processLogging)
         .def("updateStatusCode", &Transaction::updateStatusCode)

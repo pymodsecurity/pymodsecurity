@@ -4,3 +4,4 @@ tmp/
 .pytest_cache/
 __pycache__
 compile_environment.yml
+*.so
