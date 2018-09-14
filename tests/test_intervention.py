@@ -1,7 +1,7 @@
 import pytest
 import ModSecurity
 
-def test_intervention_processConnection(mocker, modsec, rules):
+def test_intervention_processConnection(modsec, rules):
     rule = 'SecRuleEngine On\n'
     rule += 'SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "phase:0,deny,id:161"'
 
