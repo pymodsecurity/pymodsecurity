@@ -1,13 +1,15 @@
 #!/bin/bash
 
-wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O $HOME/miniconda.sh
+wget -O miniconda.sh https://repo.continuum.io/miniconda/Miniconda3-$CONDA_VERSION.sh
 
-bash ~/miniconda.sh -b -p $HOME/miniconda
+bash miniconda.sh -b -p $HOME/miniconda
 
 export PATH="$HOME/miniconda/bin:$PATH"
 
-echo "source $HOME/miniconda/etc/profile.d/conda.sh" >> $HOME/.bashrc
+conda config --set always_yes yes --set changeps1 no
 
-conda config --add channels conda-forge 
+conda config --add channels conda-forge
 
-conda install conda-devenv
+conda update -q conda
+
+conda install -q conda-build conda-devenv
