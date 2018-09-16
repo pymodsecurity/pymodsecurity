@@ -1,7 +1,7 @@
 import pytest
 import ModSecurity
 
-def test_intervention_processConnection(mocker, modsec, rules):
+def test_intervention_processConnection(modsec, rules):
     rule = 'SecRuleEngine On\n'
     rule += 'SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "phase:0,deny,id:161"'
 
@@ -17,7 +17,7 @@ def test_intervention_processConnection(mocker, modsec, rules):
     assert transaction.intervention(intervention)
     assert intervention.disruptive
 
-def test_intervention_processURI(mocker, modsec, rules):
+def test_intervention_processURI(modsec, rules):
     rule = 'SecRuleEngine On\n'
     rule += 'SecRule REQUEST_URI "@streq /attack.php" "id:1,phase:1,t:lowercase,deny"'
 
@@ -33,7 +33,7 @@ def test_intervention_processURI(mocker, modsec, rules):
     assert transaction.intervention(intervention)
     assert intervention.disruptive
 
-def test_intervention_addRequestHeader(mocker, modsec, rules):
+def test_intervention_addRequestHeader(modsec, rules):
     rule = 'SecRuleEngine On\n'
     rule += 'SecRule REQUEST_HEADERS:Host "^[\d\.]+$" "deny,id:47,log,status:400,msg:\'Host header is a numeric IP address\'"'
 
