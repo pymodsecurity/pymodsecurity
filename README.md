@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/actions-security/pymodsecurity.svg?branch=master)](https://travis-ci.org/actions-security/pymodsecurity)
+
 # ModSecurity Python
 
 Python binding for ModSecurity

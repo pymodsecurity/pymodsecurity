@@ -1,20 +1,17 @@
 #!/bin/bash
 
-# apt-get install -y flex byacc libpcre3 libpcre3-dev libxml2-dev git cmake libtool automake autoconf m4 pkg-config
+sudo apt-get update
 
-# wget https://github.com/SpiderLabs/ModSecurity/releases/download/v3.0.2/modsecurity-v3.0.2.tar.gz
+sudo apt-get install -y g++ flex bison curl doxygen libyajl-dev libgeoip-dev libtool dh-autoreconf libcurl4-gnutls-dev libxml2 libpcre++-dev libxml2-dev git cmake libtool automake autoconf m4 pkg-config || exit 1
 
-# tar xvf modsecurity-v3.0.2.tar.gz
+wget -O modsecurity.tar.gz https://github.com/SpiderLabs/ModSecurity/releases/download/v$MODSECURITY_VERSION/modsecurity-v$MODSECURITY_VERSION.tar.gz || exit 1
 
-# cd modsecurity-v3.0.2
+tar xvf modsecurity.tar.gz || exit 1
 
-# ./build.sh
-# ./configure && make && make install
+pushd modsecurity-v$MODSECURITY_VERSION || exit 1
 
-# cd ..
+./build.sh || exit 1
 
-conda config --add channels conda-forge
+./configure --prefix=/usr && make -j 2 && sudo make install && sudo ldconfig || exit 1
 
-conda install conda-devenv
-
-conda devenv -f compile_environment.devenv.yml
+popd || exit 1
