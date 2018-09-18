@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/actions-security/pymodsecurity.svg?branch=master)](https://travis-ci.org/actions-security/pymodsecurity)
+[![PyPI version](https://badge.fury.io/py/pymodsecurity.svg)](https://badge.fury.io/py/pymodsecurity)
 
 # ModSecurity Python
 
