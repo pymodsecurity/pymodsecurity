@@ -12,7 +12,9 @@ Python binding for ModSecurity
 `libmodsecurity`, `python-dev` or `python3-dev` as well as `cmake` 
 
 
-### Compilation
+### Compiling with CMake
+
+The module's shared library can be built through CMake:
 
 1 - Clone this repo
 2 - Update the pybind11 submodule
@@ -33,6 +35,29 @@ $ mkdir build && cd build
 $ cmake .. && make
 ```
 5 - Add the shared library to python's path
+
+### Building and installing with conda
+
+If you're using conda, you can build the package locally using conda-build:
+
+1 - Clone this repo
+2 - Update the pybind11 submodule
+
+```bash
+$ git submodule init && git submodule update
+```
+
+3 - Run conda-build
+
+```
+$ conda-build recipe
+```
+
+4 - Install
+
+```
+$ conda install --use-local pymodsecurity
+```
 
 ### Examples
 
