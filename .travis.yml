@@ -24,7 +24,7 @@ before_install:
   if [ -n "$CONDA_PY" ]; then
     bash .ci-support/install-conda.sh
     export PATH="$HOME/miniconda/bin:$PATH"
-    conda devenv -f compile_environment.devenv.yml
+    conda devenv -f .ci-support/compile_environment.devenv.yml
     source activate pymodsecurity
   else
     bash .ci-support/install-modsecurity.sh
@@ -35,7 +35,7 @@ install:
     conda build recipe
     conda install --use-local pymodsecurity
   else
-    pip install pytest pybind11>=2.2
+    pip install .ci-support/requirements.txt
     python setup.py sdist
     pip install --verbose dist/*.tar.gz
   fi

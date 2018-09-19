@@ -1,8 +1,4 @@
-from ModSecurity import ModSecurity
-from ModSecurity import Rules
-from ModSecurity import Transaction
-from ModSecurity import ModSecurityIntervention
-
+import pytest
 
 def test_create(modsec):
     assert modsec is not None
@@ -36,5 +32,43 @@ def test_transaction(transaction):
     assert transaction.processLogging()
 
 def test_intervention_create():
+    from ModSecurity import ModSecurityIntervention
     it = ModSecurityIntervention()
     assert it is not None
+
+@pytest.fixture
+def callback_test_rules(rules):
+    rule = 'SecRuleEngine On\n'
+    rule += 'SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "phase:0,deny,id:161,msg:\'test\'"'
+
+    assert rules.load(rule) > 0, rules.getParserError() or 'Failed to load rule'
+
+def test_log_callback1(modsec, callback_test_rules, transaction, mocker):
+    stub = mocker.stub('ModSecurity callback')
+    modsec.setServerLogCb(stub)
+
+    transaction.processConnection('127.0.0.1', 33333, '127.0.0.1', 8080)
+
+    assert stub.call_count == 1
+
+    _, rule_msg = stub.call_args_list[0][0]
+
+    assert '[id "161"]' in rule_msg
+    assert '[msg "test"]' in rule_msg
+
+@pytest.mark.xfail(reason='Callback override not ok')
+def test_log_callback2(modsec, callback_test_rules, transaction, mocker):
+    stub = mocker.stub('ModSecurity callback')
+    import ModSecurity
+    modsec.setServerLogCb(stub, ModSecurity.LogProperty.RuleMessageLogProperty)
+
+    transaction.processConnection('127.0.0.1', 33333, '127.0.0.1', 8080)
+
+    assert stub.call_count == 1
+
+    _, rule_msg = stub.call_args_list[0][0]
+
+    assert isinstance(rule_msg, ModSecurity.RuleMessage)
+    assert rule_msg.m_ruleId == 161
+    assert rule_msg.m_phase == 0
+    assert rule_msg.m_message == 'test'

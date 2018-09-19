@@ -5,6 +5,7 @@ dependencies:
   - modsecurity={{ os.environ.get('MODSECURITY_VERSION', '3.0.2') }}
   - pybind11=2.2.3
   - pytest
+  - pytest-mock
   - gcc
 
 environment:
