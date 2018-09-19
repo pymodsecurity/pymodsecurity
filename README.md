@@ -10,54 +10,66 @@ Python binding for ModSecurity
 
 `libmodsecurity`, `python-dev` or `python3-dev` as well as `cmake` 
 
+### Packages
 
-### Compiling with CMake
-
-The module's shared library can be built through CMake:
-
-1 - Clone this repo
-2 - Update the pybind11 submodule
-
-```bash
-$ git submodule init && git submodule update
+Pymodsecurity is available as an python package, to install it simply run:
+```
+$ pip install pymodsecurity
 ```
 
-3 - Create a build directory
+### Building from source
 
+There are multiple ways to build pymodsecurity from source, you can either compile the module manually with CMake, install using setup.py or build a conda package using the recipe. Below are steps for each way.
+
+#### Installing via setup.py
+
+1 - Clone this repo and update the pybind11 submodule:
+```bash
+$ git clone --recurse-submodules https://github.com/actions-security/pymodsecurity.git
+```
+
+2 - Compile and install the module:
+```
+$ python setup.py install
+```
+
+#### Compiling with CMake
+
+1 - Clone this repo and update the pybind11 submodule:
+```bash
+$ git clone --recurse-submodules https://github.com/actions-security/pymodsecurity.git
+```
+
+2 - Create a build directory:
 ```bash
 $ mkdir build && cd build
 ```
 
-4 - Run cmake and make
-
+3 - Run CMake and make:
 ```bash
 $ cmake .. && make
 ```
-5 - Add the shared library to python's path
+4 - Add the shared library to python's path
 
-### Building and installing with conda
+#### Building and installing with conda
 
-If you're using conda, you can build the package locally using conda-build:
+If you're using conda, you can build the package locally using conda-build (you will need to install `conda-build`).
 
-1 - Clone this repo
-2 - Update the pybind11 submodule
-
+1 - Clone this repo and update the pybind11 submodule:
 ```bash
-$ git submodule init && git submodule update
+$ git clone --recurse-submodules https://github.com/actions-security/pymodsecurity.git
 ```
 
-3 - Run conda-build
-
+2 - Run conda-build:
 ```
 $ conda-build recipe
 ```
 
-4 - Install
-
+3 - Install the package:
 ```
 $ conda install --use-local pymodsecurity
 ```
 
 ### Examples
 
-Some examples are provided in the `examples/` directory
+Some examples are provided in the `examples/` directory. More are coming soon.
