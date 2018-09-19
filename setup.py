@@ -118,7 +118,7 @@ setup(
     author='Davysson0, GustavoKatel',
     author_email='davysson0@gmail.com, gbritosampaio@gmail.com',
     url='https://github.com/actions-security/pymodsecurity',
-    description='Python bindings to libmodsecurity',
+    description='Python bindings for ModSecurity',
     long_description='',
     ext_modules=ext_modules,
     install_requires=['pybind11>=2.2'],
