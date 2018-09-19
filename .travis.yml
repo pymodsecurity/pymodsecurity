@@ -35,7 +35,7 @@ install:
     conda build recipe
     conda install --use-local pymodsecurity
   else
-    pip install .ci-support/requirements.txt
+    pip install -r .ci-support/requirements.txt
     python setup.py sdist
     pip install --verbose dist/*.tar.gz
   fi
