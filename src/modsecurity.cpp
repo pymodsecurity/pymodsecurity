@@ -26,7 +26,7 @@ void init_modsecurity(py::module &m)
                 modSecLogCb((char *)arg1, (const char *)arg2);
             });
         })
-        .def("setServerLogCb", [](ModSecurity &ms, std::function<void(char *, const RuleMessage *)> cb) {
+        .def("setServerLogCb2", [](ModSecurity &ms, std::function<void(char *, const RuleMessage *)> cb) {
             modSecLogCb2 = cb;
             ms.setServerLogCb(+[](void *arg1, const void *arg2) {
                 modSecLogCb2((char *)arg1, (const RuleMessage *)arg2);
@@ -38,7 +38,7 @@ void init_modsecurity(py::module &m)
                 modSecLogCb((char *)arg1, (const char *)arg2);
             }, properties);
         })
-        .def("setServerLogCb", [](ModSecurity &ms, std::function<void(char *, const RuleMessage *)> cb, int properties) {
+        .def("setServerLogCb2", [](ModSecurity &ms, std::function<void(char *, const RuleMessage *)> cb, int properties) {
             modSecLogCb2 = cb;
             ms.setServerLogCb(+[](void *arg1, const void *arg2) {
                 modSecLogCb2((char *)arg1, (const RuleMessage *)arg2);
