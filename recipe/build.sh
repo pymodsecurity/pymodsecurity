@@ -1,3 +1,3 @@
 #!/bin/bash
 
-${PYTHON} setup.py install;
+CFLAGS="-I$PREFIX/include -L$PREFIX/lib" ${PYTHON} setup.py install;

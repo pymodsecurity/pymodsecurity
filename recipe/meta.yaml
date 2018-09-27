@@ -21,7 +21,6 @@ requirements:
     # - {{ compiler('c') }}
     # - {{ compiler('cxx') }}
     - gcc
-    - modsecurity
     - python
     - setuptools
     - pybind11
