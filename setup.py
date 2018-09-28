@@ -23,14 +23,6 @@ class get_pybind_include(object):
         import pybind11
         return pybind11.get_include(self.user)
 
-def get_conda_prefix(concat=''):
-    import os
-    if 'CONDA_PREFIX' in os.environ:
-        prefix = os.environ['CONDA_PREFIX']
-        return os.path.join(prefix, concat) 
-    else:
-        return ''
-
 ext_modules = [
     Extension(
         'ModSecurity',
@@ -39,9 +31,6 @@ ext_modules = [
             # Path to pybind11 headers
             get_pybind_include(),
             get_pybind_include(user=True)
-        ],
-        library_dirs=[
-            get_conda_prefix('lib'),
         ],
         libraries=[
             'modsecurity',
@@ -84,16 +73,12 @@ class BuildExt(build_ext):
     c_opts = {
         'msvc': [],
         'unix': [
-            '-I'+ get_conda_prefix('include'),
-            '-L'+ get_conda_prefix('lib'),
             '-lmodsecurity',
         ],
     }
 
     link_opts = {
         'unix': [
-            '-I'+ get_conda_prefix('include'),
-            '-L'+ get_conda_prefix('lib'),
             '-lmodsecurity',
         ],
     }
