@@ -1,16 +1,28 @@
 [![Build Status](https://travis-ci.org/actions-security/pymodsecurity.svg?branch=master)](https://travis-ci.org/actions-security/pymodsecurity)
 [![PyPI version](https://img.shields.io/pypi/v/pymodsecurity.svg)](https://pypi.org/project/pymodsecurity)
 [![conda-forge version](https://img.shields.io/conda/vn/conda-forge/pymodsecurity.svg)](https://anaconda.org/conda-forge/pymodsecurity)
+[![modsecurity version](https://img.shields.io/badge/modsecurity-3.0.2-blue.svg)](https://github.com/SpiderLabs/ModSecurity/releases)
 
 # ModSecurity Python
 
 Python binding for ModSecurity
+
+* Note: This is an alpha version. Crashes are expected. Comments and suggestions are welcome
 
 ## Developer Guide
 
 ### Dependencies
 
 `libmodsecurity`, `python-dev` or `python3-dev` as well as `cmake` 
+
+#### Bindings and ModSecurity Version Reference
+
+| pymodsecurity 	| ModSecurity 	|
+|---------------	|-------------	|
+| v0.0.1 	| v3.0.2 	|
+| v0.0.2 	| v3.0.2 	|
+
+Please refer to [ModSecurity Releases](https://github.com/SpiderLabs/ModSecurity/releases) and [ModSecurity Installation Guide](https://github.com/SpiderLabs/ModSecurity/wiki)
 
 ### Packages
 
