@@ -89,3 +89,7 @@ $ conda install --use-local pymodsecurity
 ### Examples
 
 Some examples are provided in the `examples/` directory. More are coming soon.
+
+#### Real world examples
+
+[django middleware](https://github.com/GustavoKatel/django-pymodsecurity)
