@@ -32,12 +32,12 @@ before_install:
 install:
 - |
   if [ -n "$CONDA_PY" ]; then
-    conda build recipe
-    conda install --use-local pymodsecurity
+    conda build recipe || exit 1
+    conda install --use-local pymodsecurity || exit 1
   else
-    pip install -r .ci-support/requirements.txt
-    python setup.py sdist
-    pip install --verbose dist/*.tar.gz
+    pip install -r .ci-support/requirements.txt || exit 1
+    python setup.py sdist || exit 1
+    pip install --verbose dist/*.tar.gz || exit 1
   fi
 script:
 - pytest tests

@@ -56,7 +56,6 @@ def test_log_callback1(modsec, callback_test_rules, transaction, mocker):
     assert '[id "161"]' in rule_msg
     assert '[msg "test"]' in rule_msg
 
-@pytest.mark.skipif(True, reason='TODO: Waiting for modsecurity 3.0.3')
 def test_log_callback2(modsec, callback_test_rules, transaction, mocker):
     stub = mocker.stub('ModSecurity callback')
     import ModSecurity
@@ -70,6 +69,6 @@ def test_log_callback2(modsec, callback_test_rules, transaction, mocker):
 
     assert isinstance(rule_msg, ModSecurity.RuleMessage)
     assert rule_msg.m_ruleId == 161
-    # assert rule_msg.m_phase == 0
+    assert rule_msg.m_phase == 0
     assert rule_msg.m_message == 'test'
     assert rule_msg.m_isDisruptive
