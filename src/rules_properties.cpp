@@ -44,7 +44,7 @@ void init_rules_properties(py::module &m)
     py::class_<ConfigUnicodeMap>(m, "ConfigUnicodeMap")
         .def(py::init<>())
         .def_readwrite("m_set", &ConfigUnicodeMap::m_set)
-        .def_readwrite("m_unicode_map_table", &ConfigUnicodeMap::m_unicode_map_table);
+        .def_readwrite("m_unicode_map_table", &ConfigUnicodeMap::m_unicodeMapTable);
 
     py::class_<RulesProperties> rulesProperties(m, "RulesProperties");
 
