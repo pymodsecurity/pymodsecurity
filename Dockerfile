@@ -1,8 +1,8 @@
 FROM nginx:1
 MAINTAINER Chaim Sanders chaim.sanders@gmail.com
 
-ENV LD_LIBRARY_PATH /usr/local/modsecurity/lib:/usr/local/lib:${LD_LIBRARY_PATH} 
-ENV CPLUS_INCLUDE_PATH /usr/local/modsecurity/include:${CPLUS_INCLUDE_PATH} 
+ENV LD_LIBRARY_PATH /usr/local/modsecurity/lib:/usr/local/lib:${LD_LIBRARY_PATH}
+ENV CPLUS_INCLUDE_PATH /usr/local/modsecurity/include:${CPLUS_INCLUDE_PATH}
 
 RUN apt-get update && apt-get install -y git cmake libtool automake g++ libxml2-dev libcurl4-gnutls-dev doxygen liblua5.3-dev libpcre++-dev wget libgeoip-dev make python3 python3-pip
 RUN wget https://github.com/LMDB/lmdb/archive/LMDB_0.9.23.tar.gz
@@ -24,13 +24,12 @@ RUN cd ssdeep-2.14.1 && \
        make && \
        make install
 
-RUN wget https://github.com/SpiderLabs/ModSecurity/releases/download/v3.0.2/modsecurity-v3.0.2.tar.gz
-RUN tar -xvzf modsecurity-v3.0.2.tar.gz
-RUN mv modsecurity-v3.0.2 ModSecurity
+RUN wget https://github.com/SpiderLabs/ModSecurity/releases/download/v3.0.3/modsecurity-v3.0.3.tar.gz
+RUN tar -xvzf modsecurity-v3.0.3.tar.gz
+RUN mv modsecurity-v3.0.3 ModSecurity
 
 
 RUN cd ModSecurity && \
-    ./build.sh && \
     ./configure && \
     make -j 10 && \
     make install
