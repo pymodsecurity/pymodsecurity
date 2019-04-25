@@ -7,3 +7,5 @@ compile_environment.yml
 *.so
 .vscode/
 dist/
+.idea/
+cmake-build-debug

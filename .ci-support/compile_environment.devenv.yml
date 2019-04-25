@@ -1,12 +1,11 @@
 name: pymodsecurity
 
 dependencies:
-  - python={{ os.environ.get('CONDA_PY', '3.6') }}
-  - modsecurity={{ os.environ.get('MODSECURITY_VERSION', '3.0.2') }}
-  - pybind11=2.2.3
+  - python={{ os.environ.get('CONDA_PY', '3.7') }}
+  - modsecurity={{ os.environ.get('MODSECURITY_VERSION', '3.0.3') }}
+  - pybind11=2.2.4
   - pytest
   - pytest-mock
-  - gcc
 
 environment:
   PYTHONPATH:

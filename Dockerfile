@@ -24,13 +24,12 @@ RUN cd ssdeep-2.14.1 && \
        make && \
        make install
 
-RUN wget https://github.com/SpiderLabs/ModSecurity/releases/download/v3.0.2/modsecurity-v3.0.2.tar.gz
-RUN tar -xvzf modsecurity-v3.0.2.tar.gz
-RUN mv modsecurity-v3.0.2 ModSecurity
+RUN wget https://github.com/SpiderLabs/ModSecurity/releases/download/v3.0.3/modsecurity-v3.0.3.tar.gz
+RUN tar -xvzf modsecurity-v3.0.3.tar.gz
+RUN mv modsecurity-v3.0.3 ModSecurity
 
 
 RUN cd ModSecurity && \
-    ./build.sh && \
     ./configure && \
     make -j 10 && \
     make install

@@ -4,27 +4,18 @@
 namespace py = pybind11;
 using modsecurity::debug_log::DebugLog;
 
-class pyDebugLog : public DebugLog {
-    public:
-    using DebugLog::DebugLog;
-
-    void write(int level, const std::string &msg) override {
-        PYBIND11_OVERLOAD(void, DebugLog, write, level, msg);
-    }
-
-};
-
-void init_debug_log(py::module& m)
+void init_debug_log(py::module &m)
 {
     py::module debug_log_module = m.def_submodule("debug_log");
 
-    py::class_<DebugLog, pyDebugLog>(debug_log_module, "DebugLog")
-        .def(py::init<>())
-        .def("write", &DebugLog::write)
-        .def("isLogFileSet", &DebugLog::isLogFileSet)
-        .def("isLogLevelSet", &DebugLog::isLogLevelSet)
-        .def("setDebugLogLevel", &DebugLog::setDebugLogLevel)
-        .def("setDebugLogFile", &DebugLog::setDebugLogFile)
-        .def("getDebugLogFile", &DebugLog::getDebugLogFile)
-        .def("getDebugLogLevel", &DebugLog::getDebugLogLevel);
+    py::class_<DebugLog>(debug_log_module, "DebugLog")
+            .def(py::init<>())
+            .def("write", (void (DebugLog::*) (int, const std::string &)) &DebugLog::write)
+            .def("write", (void (DebugLog::*) (int level, const std::string &, const std::string &, const std::string &)) &DebugLog::write)
+            .def("isLogFileSet", &DebugLog::isLogFileSet)
+            .def("isLogLevelSet", &DebugLog::isLogLevelSet)
+            .def("setDebugLogLevel", &DebugLog::setDebugLogLevel)
+            .def("setDebugLogFile", &DebugLog::setDebugLogFile)
+            .def("getDebugLogFile", &DebugLog::getDebugLogFile)
+            .def("getDebugLogLevel", &DebugLog::getDebugLogLevel);
 }

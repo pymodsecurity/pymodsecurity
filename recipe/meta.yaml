@@ -18,9 +18,9 @@ source:
 
 requirements:
   build:
-    # - {{ compiler('c') }}
-    # - {{ compiler('cxx') }}
-    - gcc
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    # - gcc
     - python
     - setuptools
     - pybind11

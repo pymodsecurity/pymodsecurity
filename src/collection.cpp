@@ -39,14 +39,14 @@ class pyCollection : public Collection {
     void resolveSingleMatch(const std::string& var, std::vector<const VariableValue *> *l) override {
         PYBIND11_OVERLOAD_PURE(void, Collection, resolveSingleMatch, var, l);
     }
-    
-    void resolveMultiMatches(const std::string& var, std::vector<const VariableValue *> *l) override {
+
+    /*void resolveMultiMatches(const std::string& var, std::vector<const VariableValue *> *l) override {
         PYBIND11_OVERLOAD_PURE(void, Collection, resolveMultiMatches, var, l);
     }
 
     void resolveRegularExpression(const std::string& var, std::vector<const VariableValue *> *l) override {
         PYBIND11_OVERLOAD_PURE(void, Collection, resolveRegularExpression, var, l);
-    }
+    }*/
 
     void store(std::string key, std::string compartment, std::string value)  override {
         PYBIND11_OVERLOAD(void, Collection, store, key, compartment, value);
@@ -98,7 +98,7 @@ class pyCollection : public Collection {
         PYBIND11_OVERLOAD(void, Collection, resolveSingleMatch, var, compartment, compartment2, l);
     }
 
-    void resolveMultiMatches(const std::string& var, std::string compartment, std::vector<const VariableValue *> *l) override {
+    /*void resolveMultiMatches(const std::string& var, std::string compartment, std::vector<const VariableValue *> *l) override {
         PYBIND11_OVERLOAD(void, Collection, resolveMultiMatches, var, compartment, l);
     }
 
@@ -112,7 +112,7 @@ class pyCollection : public Collection {
 
     void resolveRegularExpression(const std::string& var, std::string compartment, std::string compartment2, std::vector<const VariableValue *> *l) override {
         PYBIND11_OVERLOAD(void, Collection, resolveRegularExpression, var, compartment, compartment2, l);
-    }
+    }*/
 };
 
 void init_collection(py::module& m)
@@ -120,7 +120,6 @@ void init_collection(py::module& m)
     py::module collection_module = m.def_submodule("collection");
 
     py::class_<Collection, pyCollection>(collection_module, "Collection")
-        .def(py::init<std::string>())
         .def("store", (void (Collection::*) (std::string, std::string)) &Collection::store)
         .def("store", (void (Collection::*) (std::string, std::string, std::string)) &Collection::store)
         .def("store", (void (Collection::*) (std::string, std::string, std::string, std::string)) &Collection::store)
@@ -139,11 +138,11 @@ void init_collection(py::module& m)
         .def("resolveSingleMatch", (void (Collection::*) (const std::string &, std::vector<const VariableValue *> *)) &Collection::resolveSingleMatch)
         .def("resolveSingleMatch", (void (Collection::*) (const std::string &, std::string, std::vector<const VariableValue *> *)) &Collection::resolveSingleMatch)
         .def("resolveSingleMatch", (void (Collection::*) (const std::string &, std::string, std::string, std::vector<const VariableValue *> *)) &Collection::resolveSingleMatch)
-        .def("resolveMultiMatches", (void (Collection::*) (const std::string &, std::vector<const VariableValue *> *)) &Collection::resolveMultiMatches)
-        .def("resolveMultiMatches", (void (Collection::*) (const std::string &, std::string, std::vector<const VariableValue *> *)) &Collection::resolveMultiMatches)
-        .def("resolveMultiMatches", (void (Collection::*) (const std::string &, std::string, std::string, std::vector<const VariableValue *> *)) &Collection::resolveMultiMatches)
-        .def("resolveRegularExpression", (void (Collection::*) (const std::string &, std::vector<const VariableValue *> *)) &Collection::resolveRegularExpression)
-        .def("resolveRegularExpression", (void (Collection::*) (const std::string &, std::string, std::vector<const VariableValue *> *)) &Collection::resolveRegularExpression)
-        .def("resolveRegularExpression", (void (Collection::*) (const std::string &, std::string, std::string, std::vector<const VariableValue *> *)) &Collection::resolveRegularExpression)
+        // .def("resolveMultiMatches", (void (Collection::*) (const std::string &, std::vector<const VariableValue *> *, py::overload_cast<const std::string &)) &Collection::resolveMultiMatches)
+        // .def("resolveMultiMatches", (void (Collection::*) (const std::string &, std::string, std::vector<const VariableValue *> *, KeyExclusions &ke)) &Collection::resolveMultiMatches)
+        // .def("resolveMultiMatches", (void (Collection::*) (const std::string &, std::string, std::string, std::vector<const VariableValue *> *, KeyExclusions &ke)) &Collection::resolveMultiMatches)
+        // .def("resolveRegularExpression", (void (Collection::*) (const std::string &, std::vector<const VariableValue *> *, KeyExclusions &ke)) &Collection::resolveRegularExpression)
+        // .def("resolveRegularExpression", (void (Collection::*) (const std::string &, std::string, std::vector<const VariableValue *> *, KeyExclusions &ke)) &Collection::resolveRegularExpression)
+        // .def("resolveRegularExpression", (void (Collection::*) (const std::string &, std::string, std::string, std::vector<const VariableValue *> *, KeyExclusions &ke)) &Collection::resolveRegularExpression)
         .def_readwrite("m_name", &Collection::m_name);
 }
