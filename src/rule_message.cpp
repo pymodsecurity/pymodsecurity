@@ -25,7 +25,14 @@ void init_rule_message(py::module &m)
         .def_static("_errorLogTail", (std::string (*) (const RuleMessage *)) &RuleMessage::_errorLogTail)
         .def_readwrite("m_accuracy", &RuleMessage::m_accuracy)
         .def_readwrite("m_clientIpAddress", &RuleMessage::m_clientIpAddress)
-        .def_readwrite("m_data", &RuleMessage::m_data)
+
+        // .def_readwrite("m_data", &RuleMessage::m_data)
+        .def_property("m_data", [](const RuleMessage& rm) {
+          return py::bytes(rm.m_data);
+        }, [](RuleMessage& rm, const std::string m_data) {
+          rm.m_data = m_data;
+        }, py::return_value_policy::copy)
+
         .def_readwrite("m_id", &RuleMessage::m_id)
         .def_readwrite("m_isDisruptive", &RuleMessage::m_isDisruptive)
         .def_readwrite("m_match", &RuleMessage::m_match)
