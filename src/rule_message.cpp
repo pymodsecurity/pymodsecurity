@@ -35,7 +35,14 @@ void init_rule_message(py::module &m)
 
         .def_readwrite("m_id", &RuleMessage::m_id)
         .def_readwrite("m_isDisruptive", &RuleMessage::m_isDisruptive)
-        .def_readwrite("m_match", &RuleMessage::m_match)
+        
+        //.def_readwrite("m_match", &RuleMessage::m_match)
+        .def_property("m_match", [](const RuleMessage& rm) {
+          return py::bytes(rm.m_match);
+        }, [](RuleMessage& rm, const std::string m_match) {
+          rm.m_match = m_match;
+        }, py::return_value_policy::copy)
+
         .def_readwrite("m_maturity", &RuleMessage::m_maturity)
         .def_readwrite("m_message", &RuleMessage::m_message)
         .def_readwrite("m_noAuditLog", &RuleMessage::m_noAuditLog)
