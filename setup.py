@@ -6,7 +6,7 @@ import sys
 import setuptools
 import glob
 
-__version__ = '0.0.4'
+__version__ = '0.0.5'
 
 
 class get_pybind_include(object):
@@ -102,17 +102,18 @@ setup(
     version=__version__,
     author='Davysson0, GustavoKatel',
     author_email='davysson0@gmail.com, gbritosampaio@gmail.com',
-    url='https://github.com/actions-security/pymodsecurity',
+    url='https://github.com/pymodsecurity/pymodsecurity',
     description='Python bindings for ModSecurity',
     long_description='',
     ext_modules=ext_modules,
-    install_requires=['pybind11>=2.2'],
+    install_requires=['pybind11>=2.5.0'],
     cmdclass={'build_ext': BuildExt},
     zip_safe=False,
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "Operating System :: POSIX :: Linux",
     ],
 )
