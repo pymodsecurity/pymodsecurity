@@ -81,3 +81,16 @@ def test_log_callback2(modsec, callback_test_rules, transaction, mocker):
     # assert rule_msg.m_phase == 0
     assert rule_msg.m_message == 'test'
     assert not rule_msg.m_isDisruptive
+
+
+def test_log_callback2_bytes(modsec, callback_test_rules, transaction, mocker):
+    def cb(data, rule_message):
+        print(data)
+        assert isinstance(rule_message, ModSecurity.RuleMessage)
+        assert isinstance(rule_message.m_data, bytes)
+        assert isinstance(rule_message.m_match, bytes)
+
+    import ModSecurity
+    modsec.setServerLogCb2(cb, ModSecurity.LogProperty.RuleMessageLogProperty)
+
+    transaction.processConnection('127.0.0.1', 33333, '127.0.0.1', 8080)
