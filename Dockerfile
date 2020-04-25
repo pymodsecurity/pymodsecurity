@@ -1,8 +1,8 @@
 FROM nginx:1
 MAINTAINER Chaim Sanders chaim.sanders@gmail.com
 
-ENV LD_LIBRARY_PATH /usr/local/modsecurity/lib:/usr/local/lib:${LD_LIBRARY_PATH} 
-ENV CPLUS_INCLUDE_PATH /usr/local/modsecurity/include:${CPLUS_INCLUDE_PATH} 
+ENV LD_LIBRARY_PATH /usr/local/modsecurity/lib:/usr/local/lib:${LD_LIBRARY_PATH}
+ENV CPLUS_INCLUDE_PATH /usr/local/modsecurity/include:${CPLUS_INCLUDE_PATH}
 
 RUN apt-get update && apt-get install -y git cmake libtool automake g++ libxml2-dev libcurl4-gnutls-dev doxygen liblua5.3-dev libpcre++-dev wget libgeoip-dev make python3 python3-pip
 RUN wget https://github.com/LMDB/lmdb/archive/LMDB_0.9.23.tar.gz
@@ -35,7 +35,7 @@ RUN cd ModSecurity && \
     make install
 
 RUN ln -s /usr/local/modsecurity/lib/libmodsecurity.so /usr/lib/libmodsecurity.so
-RUN git clone --recurse-submodules https://github.com/actions-security/pymodsecurity.git
+RUN git clone --recurse-submodules https://github.com/pymodsecurity/pymodsecurity.git
 RUN pip3 install setuptools pybind11
 RUN cd pymodsecurity && \
     python3 setup.py install
