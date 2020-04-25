@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/actions-security/pymodsecurity.svg?branch=master)](https://travis-ci.org/actions-security/pymodsecurity)
+[![Build Status](https://travis-ci.com/pymodsecurity/pymodsecurity.svg?branch=master)](https://travis-ci.com/pymodsecurity/pymodsecurity)pymodsecurity)
 [![PyPI version](https://img.shields.io/pypi/v/pymodsecurity.svg)](https://pypi.org/project/pymodsecurity)
 [![conda-forge version](https://img.shields.io/conda/vn/conda-forge/pymodsecurity.svg)](https://anaconda.org/conda-forge/pymodsecurity)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pymodsecurity.svg)](https://pypi.org/project/pymodsecurity)
