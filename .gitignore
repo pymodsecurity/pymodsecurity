@@ -9,3 +9,4 @@ compile_environment.yml
 dist/
 .idea/
 cmake-build-debug
+venv/

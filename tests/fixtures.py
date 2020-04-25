@@ -39,3 +39,10 @@ def transaction(modsec, rules):
 @pytest.fixture
 def intervention():
     return ModSecurityIntervention()
+
+@pytest.fixture
+def callback_test_rules(rules):
+    rule = 'SecRuleEngine On\n'
+    rule += 'SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "phase:0,allow,id:161,msg:\'test\'"'
+
+    assert rules.load(rule) > 0, rules.getParserError() or 'Failed to load rule'

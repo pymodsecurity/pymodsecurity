@@ -23,14 +23,14 @@ requirements:
     # - gcc
     - python
     - setuptools
-    - pybind11
+    - pybind11=2.5.0
     - git
   host:
-    - modsecurity
+    - modsecurity=3.0.3
     - python
-    - pybind11
+    - pybind11=2.5.0
   run:
-    - modsecurity
+    - modsecurity=3.0.3
     - python
 
 test:

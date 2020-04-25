@@ -1,19 +1,21 @@
 language: python
-dist: trusty
 sudo: required
 matrix:
   include:
   - os: linux
     python: 3.6
   - os: linux
-    python: 3.7-dev
+    python: 3.7
+  - os: linux
+    python: 3.8
   - os: linux
     env: CONDA_PY=3.6
   - os: linux
     env: CONDA_PY=3.7
+  - os: linux
+    env: CONDA_PY=3.8
 env:
   global:
-  - CONDA_VERSION=4.5.11-Linux-x86_64
   - MODSECURITY_VERSION=3.0.3
 before_install:
 - |
@@ -41,6 +43,6 @@ deploy:
   provider: pypi
   user: GustavoKatel
   password:
-    secure: eehGl4NM5qkyYTxXKKzdzkaIZ/ip6/WJAv35z8gF6y1tb+eVU311oaFCoiz6IgXkZjS5rHfhXZJlmfrmZroUwL4F/jU2PSEmtLqD8/DvAm5iBIzz2FVSn133p77Pb2Gp1NZ3SJwDT7s2LXGj358beeNjM4uO7oZmxCtPviBQnj6HzKky3oIIW9UFbBRts+YjX1tFs6Q3rup++D68XAy32+1hnIQvNnK8hndIFsE021thOi21AF/8tCI2DeT4PCTNyOH6KMnOWLkr73rMVCHM20dp1zZwQGlI0/vVG+8sMjke18nyYD1duxJHezsz2PuKogLTKyxyVQOH7BZqrKPwV/LbTYUNzvKrf3sEyK2Ze9kr8FN+lrayKkHjVAd8Nus1IaP7oU0Xdvbm/vUjFTs9fHL81lxpg650axhUtVzWfvuq5wTCvvS1gqqnBoI3BjWZ0wizMmeJEoIatnK7F9ozOYBCnVr90m9Kf2ibnDU2jmVEIhYri+WV7AkxHDave6EW9b/LL+MykO1LAMuSgryhHf5g+WCJYT4/WL+X9wAZ9U6xArPXd/Ge4ceZkfImEN1WLb0Ieai8aASIkJrY/V6OIXxUAoqH+MxZ1al/HmmjwtjsTeiLIFR4FqfxJ9+wUfp1G4y7Y8eFGBzY9pl/dJvzNWbTnvuwJjpOIMWL7m8mylA=
+    secure: XZIt3HaYGFK4aLMrk3w4aPM1f8cKMG8tM8VUC6ubXdqitu3udv/vdoY483g54HX/fC7N7Wg+f2PXHjwborSI/iTu4q5VAMjJKGnQkOH74bSJl/pvj5P5Du4esaaRnvJ6AaPUCdJFWtsO7VRuxU5GfgllZ6/0vR3xy93GcEc2olflbIjjE2uUnSDbhvmcHhyQhFsYxuEM8zMM/Brlj1UYiiZtHBnWQt8GSQW2zfNT6W20jrMigheYAx323sUCthlh71x6C08sxtNzU8HURPb6xAd0TdYmUigubKYlKXM93GijTN5IjmaY+pnhI1i263e5rF7ofS/QDIkYvicPt/qrSBSZQIBEyXx6uuAGSUWX1uQtNEdZLKUnYgWoBbTHzGJFVOG7WGxuBmWHvtJEQZHqbKC4BR8WZQiPUxziK72nF2sbaOxMgE64wbaOamu55TvR+35k8CsKLtZUIj00+J0KnJ07lrevESJTn1umQaopjzK7Gh6FqrAGCtaM84aXfymmZYiIkCi8y6/UvYRCish8pgXY2FzHtONCrW8xHEW19Ep4QdcruKGXhFIzedkEG6ay+EctrFPmvCMFvLTK8rs1k5nLRo3fw+GRgAW+5FyS1zrzOna7zAPcYCX7tM5KU2ENohNxdqX/UVOl5htm+XeFTEkKZrelVJRfdNmfLKr/KSo=
   on:
     tags: true
