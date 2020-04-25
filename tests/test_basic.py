@@ -1,5 +1,6 @@
 import pytest
 
+
 def test_create(modsec):
     assert modsec is not None
 
@@ -31,17 +32,12 @@ def test_transaction(transaction):
 
     assert transaction.processLogging()
 
+
 def test_intervention_create():
     from ModSecurity import ModSecurityIntervention
     it = ModSecurityIntervention()
     assert it is not None
 
-@pytest.fixture
-def callback_test_rules(rules):
-    rule = 'SecRuleEngine On\n'
-    rule += 'SecRule REMOTE_ADDR "@ipMatch 127.0.0.1" "phase:0,allow,id:161,msg:\'test\'"'
-
-    assert rules.load(rule) > 0, rules.getParserError() or 'Failed to load rule'
 
 def test_log_callback1(modsec, callback_test_rules, transaction, mocker):
     stub = mocker.stub('ModSecurity callback')
@@ -56,11 +52,24 @@ def test_log_callback1(modsec, callback_test_rules, transaction, mocker):
     assert '[id "161"]' in rule_msg
     assert '[msg "test"]' in rule_msg
 
+
+def test_log_callback1a(modsec, callback_test_rules, transaction, mocker):
+    def cb(data, rule_msg):
+        print(data, rule_msg)
+        assert '[id "161"]' in rule_msg
+        assert '[msg "test"]' in rule_msg
+
+    modsec.setServerLogCb(cb)
+
+    transaction.processConnection('127.0.0.1', 33333, '127.0.0.1', 8080)
+
+
 @pytest.mark.skipif(True, reason='TODO: Waiting for modsecurity 3.0.3')
 def test_log_callback2(modsec, callback_test_rules, transaction, mocker):
     stub = mocker.stub('ModSecurity callback')
     import ModSecurity
-    modsec.setServerLogCb2(stub, ModSecurity.LogProperty.RuleMessageLogProperty)
+    modsec.setServerLogCb2(
+        stub, ModSecurity.LogProperty.RuleMessageLogProperty)
 
     transaction.processConnection('127.0.0.1', 33333, '127.0.0.1', 8080)
 
