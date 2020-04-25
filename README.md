@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/pymodsecurity/pymodsecurity.svg?branch=master)](https://travis-ci.com/pymodsecurity/pymodsecurity)pymodsecurity)
+[![Build Status](https://travis-ci.com/pymodsecurity/pymodsecurity.svg?branch=master)](https://travis-ci.com/pymodsecurity/pymodsecurity)
 [![PyPI version](https://img.shields.io/pypi/v/pymodsecurity.svg)](https://pypi.org/project/pymodsecurity)
 [![conda-forge version](https://img.shields.io/conda/vn/conda-forge/pymodsecurity.svg)](https://anaconda.org/conda-forge/pymodsecurity)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pymodsecurity.svg)](https://pypi.org/project/pymodsecurity)
@@ -42,7 +42,7 @@ There are multiple ways to build pymodsecurity from source, you can either compi
 
 1 - Clone this repo and update the pybind11 submodule:
 ```bash
-$ git clone --recurse-submodules https://github.com/actions-security/pymodsecurity.git
+$ git clone --recurse-submodules https://github.com/pymodsecurity/pymodsecurity.git
 ```
 
 2 - Compile and install the module:
@@ -54,7 +54,7 @@ $ python setup.py install
 
 1 - Clone this repo and update the pybind11 submodule:
 ```bash
-$ git clone --recurse-submodules https://github.com/actions-security/pymodsecurity.git
+$ git clone --recurse-submodules https://github.com/pymodsecurity/pymodsecurity.git
 ```
 
 2 - Create a build directory:
@@ -74,7 +74,7 @@ If you're using conda, you can build the package locally using conda-build (you 
 
 1 - Clone this repo and update the pybind11 submodule:
 ```bash
-$ git clone --recurse-submodules https://github.com/actions-security/pymodsecurity.git
+$ git clone --recurse-submodules https://github.com/pymodsecurity/pymodsecurity.git
 ```
 
 2 - Run conda-build:
@@ -93,4 +93,4 @@ Some examples are provided in the `examples/` directory. More are coming soon.
 
 #### Real world examples
 
-[django middleware](https://github.com/GustavoKatel/django-pymodsecurity)
+[django middleware](https://github.com/pymodsecurity/django-pymodsecurity)
