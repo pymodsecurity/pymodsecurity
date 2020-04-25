@@ -23,24 +23,32 @@ void init_modsecurity(py::module &m)
         .def("setServerLogCb", [](ModSecurity &ms, std::function<void(char *, const char *)> cb) {
             modSecLogCb = cb;
             ms.setServerLogCb(+[](void * arg1, const void * arg2) {
+                /* Acquire GIL before calling Python code */
+                py::gil_scoped_acquire acquire;
                 modSecLogCb((char *)arg1, (const char *)arg2);
             });
         })
         .def("setServerLogCb2", [](ModSecurity &ms, std::function<void(char *, const RuleMessage *)> cb) {
             modSecLogCb2 = cb;
             ms.setServerLogCb(+[](void *arg1, const void *arg2) {
+                /* Acquire GIL before calling Python code */
+                py::gil_scoped_acquire acquire;
                 modSecLogCb2((char *)arg1, (const RuleMessage *)arg2);
             });
         })
         .def("setServerLogCb", [](ModSecurity &ms, std::function<void(char *, const char *)> cb, int properties) {
             modSecLogCb = cb;
             ms.setServerLogCb(+[](void *arg1, const void *arg2) {
+                /* Acquire GIL before calling Python code */
+                py::gil_scoped_acquire acquire;
                 modSecLogCb((char *)arg1, (const char *)arg2);
             }, properties);
         })
         .def("setServerLogCb2", [](ModSecurity &ms, std::function<void(char *, const RuleMessage *)> cb, int properties) {
             modSecLogCb2 = cb;
             ms.setServerLogCb(+[](void *arg1, const void *arg2) {
+                /* Acquire GIL before calling Python code */
+                py::gil_scoped_acquire acquire;
                 modSecLogCb2((char *)arg1, (const RuleMessage *)arg2);
             }, properties);
         })
@@ -70,10 +78,21 @@ void init_modsecurity(py::module &m)
         .value("RuleMessageLogProperty", LogProperty::RuleMessageLogProperty)
         .value("IncludeFullHighlightLogProperty", LogProperty::IncludeFullHighlightLogProperty)
         .export_values();
-    
+
 
     // helper function, just to test if the callback is working properly
     m.def("testLogCb", [](char *d1, char *d2) {
+        /* Acquire GIL before calling Python code */
+        py::gil_scoped_acquire acquire;
         modSecLogCb(d1, d2);
     });
+
+    m.add_object("_cleanup", py::capsule([]() {
+        // We need to clean up modSecLogCb and modSecLogCb2, otherwise GIL will end up in a deadlock with pending references
+        std::function<void(char *, const char *)> cb;
+        std::function<void(char *, const RuleMessage *)> cb2;
+
+        modSecLogCb = cb;
+        modSecLogCb2 = cb2;
+    }));
 }
