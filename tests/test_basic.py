@@ -64,7 +64,6 @@ def test_log_callback1a(modsec, callback_test_rules, transaction, mocker):
     transaction.processConnection('127.0.0.1', 33333, '127.0.0.1', 8080)
 
 
-@pytest.mark.skipif(True, reason='TODO: Waiting for modsecurity 3.0.3')
 def test_log_callback2(modsec, callback_test_rules, transaction, mocker):
     stub = mocker.stub('ModSecurity callback')
     import ModSecurity
@@ -81,4 +80,4 @@ def test_log_callback2(modsec, callback_test_rules, transaction, mocker):
     assert rule_msg.m_ruleId == 161
     # assert rule_msg.m_phase == 0
     assert rule_msg.m_message == 'test'
-    assert rule_msg.m_isDisruptive
+    assert not rule_msg.m_isDisruptive
