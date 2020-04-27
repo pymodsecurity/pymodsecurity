@@ -100,7 +100,7 @@ class BuildExt(build_ext):
 setup(
     name='pymodsecurity',
     version=__version__,
-    author='Davysson0, GustavoKatel',
+    author='davysson, GustavoKatel',
     author_email='davysson0@gmail.com, gbritosampaio@gmail.com',
     url='https://github.com/pymodsecurity/pymodsecurity',
     description='Python bindings for ModSecurity',
