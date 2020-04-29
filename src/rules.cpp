@@ -9,6 +9,7 @@ void init_rules(py::module &m)
 {
     py::class_<Rules>(m, "Rules")
         .def(py::init<>())
+        .def(py::init<DebugLog *>())
         .def("incrementReferenceCount", &Rules::incrementReferenceCount)
         .def("decrementReferenceCount", &Rules::decrementReferenceCount)
         .def("loadFromUri", &Rules::loadFromUri)
