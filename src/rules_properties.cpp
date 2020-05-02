@@ -16,6 +16,7 @@ using modsecurity::ConfigInt;
 using modsecurity::ConfigDouble;
 using modsecurity::ConfigString;
 using modsecurity::ConfigSet;
+using modsecurity::UnicodeMapHolder;
 using modsecurity::ConfigUnicodeMap;
 
 void init_rules_properties(py::module &m)
@@ -48,7 +49,8 @@ void init_rules_properties(py::module &m)
         .def(py::init<>())
         .def("at", &UnicodeMapHolder::at)
         .def("change", &UnicodeMapHolder::change)
-        .def_readwrite("m_data", &UnicodeMapHolder::m_data);
+        // .def_readwrite("m_data", &UnicodeMapHolder::m_data);
+        ;
 
     py::class_<ConfigUnicodeMap>(m, "ConfigUnicodeMap")
         .def(py::init<>())

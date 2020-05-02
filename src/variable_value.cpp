@@ -12,7 +12,7 @@ using modsecurity::VariableOrigin;
 void init_variable_value(py::module &m)
 {
     py::class_<VariableValue>(m, "VariableValue")
-        .def(py::init<const std::string *, const std::string *>(), py::arg("value") = nullptr)
+        .def(py::init<const std::string *, const std::string *>())
         .def(py::init<const std::string *, const std::string *, const std::string *>())
         .def(py::init<const VariableValue *>())
         .def("getKey", &VariableValue::getKey)
@@ -21,6 +21,6 @@ void init_variable_value(py::module &m)
         .def("getValue", &VariableValue::getValue)
         .def("setValue", &VariableValue::setValue)
         // .def("addOrigin", &Variable::addOrigin)
-        .def("getOrigin", &VariableValue::getOrigin)
+        // .def("getOrigin", &VariableValue::getOrigin)
         ;
 }

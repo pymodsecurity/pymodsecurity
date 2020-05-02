@@ -3,6 +3,7 @@
 
 namespace py = pybind11;
 using modsecurity::Rules;
+using modsecurity::debug_log::DebugLog;
 using namespace modsecurity::Parser;
 
 void init_rules(py::module &m)
