@@ -17,5 +17,6 @@ void init_debug_log(py::module &m)
             .def("setDebugLogLevel", &DebugLog::setDebugLogLevel)
             .def("setDebugLogFile", &DebugLog::setDebugLogFile)
             .def("getDebugLogFile", &DebugLog::getDebugLogFile)
-            .def("getDebugLogLevel", &DebugLog::getDebugLogLevel);
+            .def("getDebugLogLevel", &DebugLog::getDebugLogLevel)
+            ;
 }

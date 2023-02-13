@@ -16,6 +16,7 @@ using modsecurity::ConfigInt;
 using modsecurity::ConfigDouble;
 using modsecurity::ConfigString;
 using modsecurity::ConfigSet;
+using modsecurity::UnicodeMapHolder;
 using modsecurity::ConfigUnicodeMap;
 
 void init_rules_properties(py::module &m)
@@ -23,28 +24,41 @@ void init_rules_properties(py::module &m)
     py::class_<ConfigInt>(m, "ConfigInt")
         .def(py::init<>())
         .def_readwrite("m_set", &ConfigInt::m_set)
-        .def_readwrite("m_value", &ConfigInt::m_value);
+        .def_readwrite("m_value", &ConfigInt::m_value)
+        .def("merge", &ConfigInt::merge);
 
     py::class_<ConfigDouble>(m, "ConfigDouble")
         .def(py::init<>())
         .def_readwrite("m_set", &ConfigDouble::m_set)
-        .def_readwrite("m_value", &ConfigDouble::m_value);
+        .def_readwrite("m_value", &ConfigDouble::m_value)
+        .def("merge", &ConfigDouble::merge);
 
     py::class_<ConfigString>(m, "ConfigString")
         .def(py::init<>())
         .def_readwrite("m_set", &ConfigString::m_set)
-        .def_readwrite("m_value", &ConfigString::m_value);
+        .def_readwrite("m_value", &ConfigString::m_value)
+        .def("merge", &ConfigString::merge);
 
     py::class_<ConfigSet>(m, "ConfigSet")
         .def(py::init<>())
         .def_readwrite("m_set", &ConfigSet::m_set)
         .def_readwrite("m_clear", &ConfigSet::m_clear)
         .def_readwrite("m_value", &ConfigSet::m_value);
+    
+    py::class_<UnicodeMapHolder>(m, "UnicodeMapHolder")
+        .def(py::init<>())
+        .def("at", &UnicodeMapHolder::at)
+        .def("change", &UnicodeMapHolder::change)
+        // .def_readwrite("m_data", &UnicodeMapHolder::m_data);
+        ;
 
     py::class_<ConfigUnicodeMap>(m, "ConfigUnicodeMap")
         .def(py::init<>())
         .def_readwrite("m_set", &ConfigUnicodeMap::m_set)
-        .def_readwrite("m_unicode_map_table", &ConfigUnicodeMap::m_unicodeMapTable);
+        .def_readwrite("m_unicode_map_table", &ConfigUnicodeMap::m_unicodeMapTable)
+        .def_readwrite("m_unicodeMapTable", &ConfigUnicodeMap::m_unicodeMapTable)
+        .def("loadConfig", &ConfigUnicodeMap::loadConfig)
+        .def("merge", &ConfigUnicodeMap::merge);
 
     py::class_<RulesProperties> rulesProperties(m, "RulesProperties");
 
