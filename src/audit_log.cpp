@@ -33,8 +33,10 @@ void init_audit_log(py::module& m)
     .def("addParts", &AuditLog::addParts)
     .def("removeParts", &AuditLog::removeParts)
     .def("merge", &AuditLog::merge)
+    /* Removed in 3.0.10
     .def("refCountIncrease", &AuditLog::refCountIncrease)
     .def("refCountDecreaseAndCheck", &AuditLog::refCountDecreaseAndCheck)
+    */
     .def_readwrite("m_path1", &AuditLog::m_path1)
     .def_readwrite("m_path2", &AuditLog::m_path2)
     .def_readwrite("m_storage_dir", &AuditLog::m_storage_dir)

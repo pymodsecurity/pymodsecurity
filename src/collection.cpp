@@ -11,10 +11,6 @@ class pyCollection : public Collection {
     public:
     using Collection::Collection;
 
-    void store(std::string key, std::string value) override {
-        PYBIND11_OVERLOAD_PURE(void, Collection, store, key, value);
-    }
-
     bool storeOrUpdateFirst(const std::string &key, const std::string &value) override {
         PYBIND11_OVERLOAD_PURE(bool, Collection, storeOrUpdateFirst, key, value);
     }
@@ -47,14 +43,6 @@ class pyCollection : public Collection {
     void resolveRegularExpression(const std::string& var, std::vector<const VariableValue *> *l) override {
         PYBIND11_OVERLOAD_PURE(void, Collection, resolveRegularExpression, var, l);
     }*/
-
-    void store(std::string key, std::string compartment, std::string value)  override {
-        PYBIND11_OVERLOAD(void, Collection, store, key, compartment, value);
-    }
-
-    void store(std::string key, std::string compartment, std::string compartment2, std::string value) override {
-        PYBIND11_OVERLOAD(void, Collection, store, key, compartment, compartment2, value);
-    }
 
     bool storeOrUpdateFirst(const std::string &key, std::string compartment, const std::string &value) override {
         PYBIND11_OVERLOAD(bool, Collection, storeOrUpdateFirst, key, compartment, value);
@@ -120,9 +108,6 @@ void init_collection(py::module& m)
     py::module collection_module = m.def_submodule("collection");
 
     py::class_<Collection, pyCollection>(collection_module, "Collection")
-        .def("store", (void (Collection::*) (std::string, std::string)) &Collection::store)
-        .def("store", (void (Collection::*) (std::string, std::string, std::string)) &Collection::store)
-        .def("store", (void (Collection::*) (std::string, std::string, std::string, std::string)) &Collection::store)
         .def("storeOrUpdateFirst", (bool (Collection::*) (const std::string &, const std::string &)) &Collection::storeOrUpdateFirst)
         .def("storeOrUpdateFirst", (bool (Collection::*) (const std::string &, std::string, const std::string &)) &Collection::storeOrUpdateFirst)
         .def("storeOrUpdateFirst", (bool (Collection::*) (const std::string &, std::string, std::string, const std::string &)) &Collection::storeOrUpdateFirst)

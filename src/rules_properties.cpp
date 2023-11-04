@@ -1,10 +1,11 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
-#include <modsecurity/rules_properties.h>
+// #include <modsecurity/rules_properties.h>
 #include <modsecurity/rule.h>
 #include <modsecurity/transaction.h>
 #include <modsecurity/debug_log.h>
 
+/*
 namespace py = pybind11;
 
 using modsecurity::ConfigInt;
@@ -123,3 +124,4 @@ void init_rules_properties(py::module &m)
         .value("PropertyNotSetRemoteRulesAction", RulesProperties::OnFailedRemoteRulesAction::PropertyNotSetRemoteRulesAction)
         .export_values();
 }
+*/

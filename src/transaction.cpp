@@ -4,6 +4,7 @@
 #include <modsecurity/rule_message.h>
 #include <modsecurity/rule.h>
 #include <modsecurity/rules.h>
+#include <modsecurity/rules_set.h>
 #include <modsecurity/modsecurity.h>
 #include <modsecurity/transaction.h>
 
@@ -11,14 +12,15 @@ namespace py = pybind11;
 using modsecurity::Transaction;
 using modsecurity::ModSecurity;
 using modsecurity::Rules;
+using modsecurity::RulesSet;
 
 void init_transaction(py::module &m)
 {
     py::class_<Transaction>(m, "Transaction")
-        .def(py::init([](ModSecurity *ms, Rules *rules) {
+        .def(py::init([](ModSecurity *ms, RulesSet *rules) {
             return std::unique_ptr<Transaction>(new Transaction(ms, rules, nullptr));
         }))
-        .def(py::init([](ModSecurity *ms, Rules *rules, char *logCbData) {
+        .def(py::init([](ModSecurity *ms, RulesSet *rules, char *logCbData) {
             return std::unique_ptr<Transaction>(new Transaction(ms, rules, (void *) logCbData));
         }))
         .def("processConnection", &Transaction::processConnection)
@@ -54,11 +56,11 @@ void init_transaction(py::module &m)
         .def("toOldAuditLogFormat", &Transaction::toOldAuditLogFormat)
         .def("toOldAuditLogFormatIndex", &Transaction::toOldAuditLogFormatIndex)
         .def_readwrite("m_creationTimeStamp", &Transaction::m_creationTimeStamp)
-        .def_readwrite("m_clientIpAddress", &Transaction::m_clientIpAddress)
+        // .def_readwrite("m_clientIpAddress", &Transaction::m_clientIpAddress)
         .def_readwrite("m_httpVersion", &Transaction::m_httpVersion)
-        .def_readwrite("m_serverIpAddress", &Transaction::m_serverIpAddress)
+        // .def_readwrite("m_serverIpAddress", &Transaction::m_serverIpAddress)
         .def_readwrite("m_uri", &Transaction::m_uri)
-        .def_readwrite("m_uri_no_query_string_decoded", &Transaction::m_uri_no_query_string_decoded)
+        // .def_readwrite("m_uri_no_query_string_decoded", &Transaction::m_uri_no_query_string_decoded)
         .def_readwrite("m_ARGScombinedSizeDouble", &Transaction::m_ARGScombinedSizeDouble)
         .def_readwrite("m_clientPort", &Transaction::m_clientPort)
         .def_readwrite("m_highestSeverityAction", &Transaction::m_highestSeverityAction)
@@ -78,15 +80,15 @@ void init_transaction(py::module &m)
         .def_readwrite("m_rulesMessages", &Transaction::m_rulesMessages)
         // .def_readwrite("m_requestBody", &Transaction::m_requestBody)
         // .def_readwrite("m_responseBody", &Transaction::m_responseBody)
-        .def_readwrite("m_id", &Transaction::m_id)
-        .def_readwrite("m_marker", &Transaction::m_marker)
+        // .def_readwrite("m_id", &Transaction::m_id)
+        // .def_readwrite("m_marker", &Transaction::m_marker)
         .def_readwrite("m_skip_next", &Transaction::m_skip_next)
         .def_readwrite("m_allowType", &Transaction::m_allowType)
         .def_readwrite("m_uri_decoded", &Transaction::m_uri_decoded)
         .def_readwrite("m_actions", &Transaction::m_actions)
         .def_readwrite("m_it", &Transaction::m_it)
         .def_readwrite("m_timeStamp", &Transaction::m_timeStamp)
-        .def_readwrite("m_collections", &Transaction::m_collections)
+        // .def_readwrite("m_collections", &Transaction::m_collections)
         .def_readwrite("m_matched", &Transaction::m_matched)
         // .def_readwrite("m_xml", &Transaction::m_xml)
         // .def_readwrite("m_json", &Transaction::m_json)
