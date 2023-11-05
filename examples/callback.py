@@ -1,6 +1,6 @@
 from ModSecurity import testLogCb
 from ModSecurity import ModSecurity
-from ModSecurity import Rules
+from ModSecurity import RulesSet
 from ModSecurity import Transaction
 from ModSecurity import LogProperty
 
@@ -20,7 +20,7 @@ modsec.setServerLogCb(
 
 testLogCb("a", "b") # helper function
 
-rules = Rules()
+rules = RulesSet()
 
 rules.loadFromUri("basic_rules.conf")
 print(rules.getParserError())
