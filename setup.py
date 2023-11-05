@@ -6,7 +6,7 @@ import sys
 import setuptools
 import glob
 
-__version__ = '0.0.8'
+__version__ = '0.1.0'
 
 
 class get_pybind_include(object):
@@ -31,6 +31,7 @@ ext_modules = [
             # Path to pybind11 headers
             get_pybind_include(),
             get_pybind_include(user=True),
+            # FIXME header location for libmodsecurity could change (this is the default location when building from source)
             '/usr/local/modsecurity/include/'
         ],
         libraries=[
@@ -101,10 +102,10 @@ class BuildExt(build_ext):
 setup(
     name='pymodsecurity',
     version=__version__,
-    author='avalz, zangobot, davysson, GustavoKatel',
-    author_email='avalenza89@gmail.com, luca.demetrio@dibris.unige.it, davysson0@gmail.com, gbritosampaio@gmail.com',
+    author='davysson, GustavoKatel, avalz, zangobot',
+    author_email='davysson0@gmail.com, gbritosampaio@gmail.com, avalenza89@gmail.com, luca.demetrio@dibris.unige.it',
     url='https://github.com/pymodsecurity/pymodsecurity',
-    description='(Minimal) Python bindings for ModSecurity 3.0.10',
+    description='Python bindings for ModSecurity',
     long_description='',
     ext_modules=ext_modules,
     install_requires=['pybind11>=2.5.0'],
@@ -115,6 +116,7 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.11",
         "Operating System :: POSIX :: Linux",
     ],
 )

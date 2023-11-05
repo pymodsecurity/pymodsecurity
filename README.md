@@ -25,6 +25,7 @@ Python binding for ModSecurity
 | v0.0.3 	| v3.0.2 	|
 | v0.0.4 	| v3.0.3 	|
 | v0.0.5 	| v3.0.3 	|
+| v0.1.0 	| v3.0.10 	|
 
 Please refer to [ModSecurity Releases](https://github.com/SpiderLabs/ModSecurity/releases) and [ModSecurity Installation Guide](https://github.com/SpiderLabs/ModSecurity/wiki)
 
