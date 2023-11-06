@@ -2,7 +2,7 @@
 [![PyPI version](https://img.shields.io/pypi/v/pymodsecurity.svg)](https://pypi.org/project/pymodsecurity)
 [![conda-forge version](https://img.shields.io/conda/vn/conda-forge/pymodsecurity.svg)](https://anaconda.org/conda-forge/pymodsecurity)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pymodsecurity.svg)](https://pypi.org/project/pymodsecurity)
-[![modsecurity version](https://img.shields.io/badge/modsecurity-3.0.3-blue.svg)](https://github.com/SpiderLabs/ModSecurity/releases)
+[![modsecurity version](https://img.shields.io/badge/modsecurity-3.0.10-blue.svg)](https://github.com/SpiderLabs/ModSecurity/releases)
 
 # ModSecurity Python
 
