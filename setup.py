@@ -83,10 +83,10 @@ class BuildExt(build_ext):
         'unix': [
             '-lmodsecurity',
         ],
+        'darwin': [
+            '-lmodsecurity'
+        ]
     }
-
-    if not sys.platform == 'linux' and not sys.platform == 'unix':
-        raise RuntimeError('Platform is {} not supported'.format(sys.platform))
 
     def build_extensions(self):
         ct = self.compiler.compiler_type
