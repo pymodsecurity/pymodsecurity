@@ -35,7 +35,8 @@ ext_modules = [
             '/usr/local/modsecurity/include/'
         ],
         library_dirs=[
-            '/usr/local/modsecurity/lib'
+            '/usr/local/modsecurity/lib',
+            'usr/lib'
         ],
         libraries=[
             'modsecurity',
