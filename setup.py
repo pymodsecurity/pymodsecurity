@@ -34,6 +34,9 @@ ext_modules = [
             # FIXME header location for libmodsecurity could change (this is the default location when building from source)
             '/usr/local/modsecurity/include/'
         ],
+        library_dirs=[
+            '/usr/local/modsecurity/lib'
+        ],
         libraries=[
             'modsecurity',
         ],
@@ -75,6 +78,9 @@ class BuildExt(build_ext):
     c_opts = {
         'msvc': [],
         'unix': [
+            '-lmodsecurity',
+        ],
+        'darwin': [
             '-lmodsecurity',
         ],
     }
