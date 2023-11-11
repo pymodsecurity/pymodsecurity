@@ -1,11 +1,11 @@
 from ModSecurity import ModSecurity
-from ModSecurity import Rules
+from ModSecurity import RulesSet
 from ModSecurity import Transaction
 
 modsec = ModSecurity()
 print(modsec.whoAmI())
 
-rules = Rules()
+rules = RulesSet()
 
 rules.loadFromUri("basic_rules.conf")
 print(rules.getParserError())

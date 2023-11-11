@@ -6,7 +6,7 @@ import sys
 import setuptools
 import glob
 
-__version__ = '0.0.6'
+__version__ = '0.1.0'
 
 
 class get_pybind_include(object):
@@ -30,7 +30,13 @@ ext_modules = [
         include_dirs=[
             # Path to pybind11 headers
             get_pybind_include(),
-            get_pybind_include(user=True)
+            get_pybind_include(user=True),
+            # FIXME header location for libmodsecurity could change (this is the default location when building from source)
+            '/usr/local/modsecurity/include/'
+        ],
+        library_dirs=[
+            '/usr/local/modsecurity/lib',
+            'usr/lib'
         ],
         libraries=[
             'modsecurity',
@@ -75,16 +81,19 @@ class BuildExt(build_ext):
         'unix': [
             '-lmodsecurity',
         ],
+        'darwin': [
+            '-lmodsecurity',
+        ],
     }
 
     link_opts = {
         'unix': [
             '-lmodsecurity',
         ],
+        'darwin': [
+            '-lmodsecurity'
+        ]
     }
-
-    if not sys.platform == 'linux' and not sys.platform == 'unix':
-        raise RuntimeError('Platform is {} not supported'.format(sys.platform))
 
     def build_extensions(self):
         ct = self.compiler.compiler_type
@@ -100,8 +109,8 @@ class BuildExt(build_ext):
 setup(
     name='pymodsecurity',
     version=__version__,
-    author='davysson, GustavoKatel',
-    author_email='davysson0@gmail.com, gbritosampaio@gmail.com',
+    author='davysson, GustavoKatel, avalz, zangobot',
+    author_email='davysson0@gmail.com, gbritosampaio@gmail.com, avalenza89@gmail.com, luca.demetrio@dibris.unige.it',
     url='https://github.com/pymodsecurity/pymodsecurity',
     description='Python bindings for ModSecurity',
     long_description='',
@@ -114,6 +123,7 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.11",
         "Operating System :: POSIX :: Linux",
     ],
 )
